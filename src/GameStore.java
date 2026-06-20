@@ -26,7 +26,7 @@ public class GameStore {
         return null;
     }
 
-    public boolean isRented(String customerName, String gameTitle) {
+    public boolean isRented(String gameTitle, String customerName) {
         return rentals.stream()
                 .anyMatch(
                         r ->

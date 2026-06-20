@@ -10,7 +10,7 @@ public class Rental {
     private LocalDateTime rentDate;
     private LocalDateTime returnDate;
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Rental(Game game, Customer customer) {
         this.id = generateUUID();
@@ -21,7 +21,7 @@ public class Rental {
 
     @Override
     public String toString() {
-        return customer.getName() + " | " + game.getTitle() + " | " + rentDate.format(FORMATTER);
+        return customer.getName() + " | " + game.getTitle() + " | " + rentDate.format(formatter);
     }
 
     public String getId() { return id; }

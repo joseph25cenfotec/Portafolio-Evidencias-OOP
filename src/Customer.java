@@ -1,21 +1,7 @@
-import static utils.IdGenerator.generateUUID;
-
-public class Customer {
-
-    private String id;
-    private String name;
+public class Customer extends User {
 
     public Customer(String name) {
-        this.id = generateUUID();
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+        super(name);
     }
 
     public void rentGame(GameStore store, Game game) {

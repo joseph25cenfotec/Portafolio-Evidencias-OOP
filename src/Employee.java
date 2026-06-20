@@ -1,23 +1,10 @@
-import static utils.IdGenerator.generateUUID;
+public class Employee extends User{
 
-public class Employee {
-
-    private String id;
-    private String name;
     private String role;
 
     public Employee(String name, String role) {
-        this.id = generateUUID();
-        this.name = name;
+        super(name);
         this.role = role;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getRole() {

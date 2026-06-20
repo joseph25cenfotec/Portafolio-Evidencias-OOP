@@ -67,12 +67,8 @@ void main() {
                                 IO.println("Videojuego no encontrado.");
                             } else if (!store.isRented(title, customerName)) {
                                 IO.println("Ese videojuego no está rentado actualmente.");
-                            } else if (!store.isRented(customerName, title)) {
-
-                                IO.println(
-                                        "Ese videojuego no está rentado por ese cliente."
-                                );
-
+                            } else if (!store.isRented(title, customerName)) {
+                                IO.println("Ese videojuego no está rentado por ese cliente.");
                             } else {
                                 Customer customer = new Customer(customerName);
                                 customer.returnGame(store, title);
