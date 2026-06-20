@@ -2,7 +2,7 @@ import static utils.IdGenerator.generateUUID;
 
 public class Customer {
 
-    private final String id;
+    private String id;
     private String name;
 
     public Customer(String name) {
@@ -16,5 +16,16 @@ public class Customer {
 
     public String getName() {
         return name;
+    }
+
+    public void rentGame(GameStore store, Game game) {
+        store.getRentals().add(new Rental(game, this));
+    }
+
+    public void returnGame(GameStore store, String gameTitle) {
+        store.getRentals().removeIf(
+                rental ->
+                        rental.getGame().getTitle().equalsIgnoreCase(gameTitle) && rental.getCustomer().getName().equalsIgnoreCase(getName())
+        );
     }
 }

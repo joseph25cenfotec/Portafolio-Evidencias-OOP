@@ -1,5 +1,3 @@
-import java.util.UUID;
-
 import static utils.IdGenerator.generateUUID;
 
 public class Game {
