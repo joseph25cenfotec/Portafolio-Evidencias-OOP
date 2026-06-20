@@ -7,12 +7,14 @@ void main() {
     IO.println("Ingrese el nombre de la tienda:");
     String storeName = scanner.nextLine();
 
+    // Inicialización del nombre de la tienda y el usuario empleado
     GameStore store = new GameStore(storeName);
-
     Employee employee = new Employee("Johan", "Administrador");
 
+    // Ciclo principal del Programa
     while (true) {
 
+        // Menú principal para elegir como que tipo de usuario ingresar
         IO.println("\n=== MENÚ PRINCIPAL ===");
         IO.println("1. Cliente");
         IO.println("2. Empleado");
@@ -21,9 +23,12 @@ void main() {
 
         int mainOption = Integer.parseInt(scanner.nextLine());
 
+        // Switch Menú principal
         switch (mainOption) {
 
+            // Opcion 1: Ingresa en el Menu del Cliente / Customer
             case 1:
+                // Ciclo del Menu de acciones del cliente
                 while (true) {
                     IO.println("\n=== MENÚ CLIENTE ===");
                     IO.println("1. Rentar videojuego");
@@ -100,7 +105,9 @@ void main() {
                 }
                 break;
 
+            // Opcion 2: Ingresa en el Menu del Empleado / Employee
             case 2:
+                // Ciclo del Menu de acciones del empleado
                 while (true) {
                     IO.println("\n=== MENÚ EMPLEADO ===");
                     IO.println("1. Agregar nuevo videojuego");

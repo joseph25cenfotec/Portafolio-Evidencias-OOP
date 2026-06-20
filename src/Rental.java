@@ -10,6 +10,7 @@ public class Rental {
     private LocalDateTime rentDate;
     private LocalDateTime returnDate;
 
+    // Metodo para formatear fechas en formato dd-MM-yy (Día-Mes-Año)
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Rental(Game game, Customer customer) {
