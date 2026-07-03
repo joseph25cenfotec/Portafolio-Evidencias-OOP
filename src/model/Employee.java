@@ -1,4 +1,6 @@
-public class Employee extends User{
+package model;
+
+public class Employee extends User {
 
     private String role;
 

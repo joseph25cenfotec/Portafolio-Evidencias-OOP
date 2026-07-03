@@ -1,3 +1,5 @@
+import model.*;
+
 void main() {
     Scanner scanner = new Scanner(System.in);
 
@@ -26,7 +28,7 @@ void main() {
         // Switch Menú principal
         switch (mainOption) {
 
-            // Opcion 1: Ingresa en el Menu del Cliente / Customer
+            // Opcion 1: Ingresa en el Menu del Cliente / model.Customer
             case 1:
                 // Ciclo del Menu de acciones del cliente
                 while (true) {
@@ -105,7 +107,7 @@ void main() {
                 }
                 break;
 
-            // Opcion 2: Ingresa en el Menu del Empleado / Employee
+            // Opcion 2: Ingresa en el Menu del Empleado / model.Employee
             case 2:
                 // Ciclo del Menu de acciones del empleado
                 while (true) {

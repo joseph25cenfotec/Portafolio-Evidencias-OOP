@@ -1,3 +1,5 @@
+package model;
+
 import static utils.IdGenerator.generateUUID;
 
 public class Game {
