@@ -1,12 +1,14 @@
-package model;
+package model.Rental;
+
+import model.Customer.Customer;
+import model.Game.Game;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import static utils.IdGenerator.generateUUID;
 
 public class Rental {
 
-    private final String id;
+    private int id;
     private Game game;
     private Customer customer;
     private LocalDateTime rentDate;
@@ -15,11 +17,20 @@ public class Rental {
     // Metodo para formatear fechas en formato dd-MM-yy (Día-Mes-Año)
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    // Constructor para crear una renta nueva (id se asigna luego, tras insertar en BD)
     public Rental(Game game, Customer customer) {
-        this.id = generateUUID();
         this.game = game;
         this.customer = customer;
         this.rentDate = LocalDateTime.now();
+    }
+
+    // Constructor de hidratación: reconstruye una renta ya existente en la BD
+    public Rental(int id, Game game, Customer customer, LocalDateTime rentDate, LocalDateTime returnDate) {
+        this.id = id;
+        this.game = game;
+        this.customer = customer;
+        this.rentDate = rentDate;
+        this.returnDate = returnDate;
     }
 
     @Override
@@ -27,7 +38,8 @@ public class Rental {
         return customer.getName() + " | " + game.getTitle() + " | " + rentDate.format(formatter);
     }
 
-    public String getId() { return id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public Game getGame() { return game; }
     public void setGame(Game game) { this.game = game; }

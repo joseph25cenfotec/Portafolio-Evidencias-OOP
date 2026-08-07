@@ -1,23 +1,35 @@
-package model;
-
-import static utils.IdGenerator.generateUUID;
+package model.Game;
 
 public class Game {
 
-    private String id;
+    private int id;
     private String title;
     private String platform;
     private double price;
 
+    // Constructor para crear un videojuego nuevo (id se asigna luego, tras insertar en BD)
     public Game(String title, String platform, double price) {
-        this.id = generateUUID();
         this.title = title;
         this.platform = platform;
         this.price = price;
     }
 
-    public String getId() {
+    // Constructor de hidratación: reconstruye un videojuego ya existente en la BD
+    public Game(int id, String title, String platform, double price) {
+        this.id = id;
+        this.title = title;
+        this.platform = platform;
+        this.price = price;
+    }
+
+    public int getId() {
         return id;
+    }
+
+    // Usado por el DAO justo después de insertar, para completar el id
+    // que generó MySQL (AUTO_INCREMENT) en el objeto recién creado.
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

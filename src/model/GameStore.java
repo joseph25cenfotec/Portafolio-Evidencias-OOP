@@ -1,52 +1,56 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import model.Game.Game;
+import model.Game.GestorGame;
+import model.Rental.GestorRental;
+import model.Rental.Rental;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * GameStore ya no guarda listas en memoria: es un orquestador que
+ * delega toda lectura/escritura a los Gestores (Game, Rental). No
+ * tiene su propia tabla en la BD.
+ */
 public class GameStore {
 
-    private String id;
-    private String name;
-
-    private List<Game> games;
-    private List<Rental> rentals;
+    private final String name;
 
     public GameStore(String name) {
-        this.id = UUID.randomUUID().toString();
         this.name = name;
-        this.games = new ArrayList<>();
-        this.rentals = new ArrayList<>();
     }
 
-    public Game findGameByTitle(String title) {
-        for (Game g : games) {
-            if (g.getTitle().equalsIgnoreCase(title)) {
-                return g;
-            }
-        }
-        return null;
+    public String getName() {
+        return name;
     }
 
-    public boolean isRented(String gameTitle, String customerName) {
-        return rentals.stream()
-                .anyMatch(
-                        r ->
-                                r.getGame()
-                                        .getTitle()
-                                        .equalsIgnoreCase(gameTitle)
-                                        &&
-                                        r.getCustomer()
-                                                .getName()
-                                                .equalsIgnoreCase(customerName)
-                );
+    public Game findGameByTitle(String title) throws Exception {
+        return GestorGame.buscarGamePorTitulo(title);
     }
 
-    public List<Game> getGames() {
-        return games;
+    // Un juego está "rentado" si existe una renta activa (return_date == null)
+    // para ese título y ese cliente.
+    public boolean isRented(String gameTitle, String customerName) throws Exception {
+        return getActiveRentals().stream()
+                .anyMatch(r ->
+                        r.getGame().getTitle().equalsIgnoreCase(gameTitle)
+                                && r.getCustomer().getName().equalsIgnoreCase(customerName));
     }
 
-    public List<Rental> getRentals() {
-        return rentals;
+    public List<Game> getGames() throws Exception {
+        return GestorGame.listarGames();
+    }
+
+    // Historial completo de rentas (incluye devueltas)
+    public List<Rental> getRentals() throws Exception {
+        return GestorRental.listarRentals();
+    }
+
+    // Solo las rentas que todavía no se han devuelto
+    public List<Rental> getActiveRentals() throws Exception {
+        return getRentals().stream()
+                .filter(r -> r.getReturnDate() == null)
+                .collect(Collectors.toList());
     }
 }
