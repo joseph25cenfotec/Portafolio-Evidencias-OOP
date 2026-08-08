@@ -1,10 +1,10 @@
-package model.Rental;
+package model.rental;
 
 import data.Connector;
-import model.Customer.Customer;
-import model.Customer.DAOCustomer;
-import model.Game.DAOGame;
-import model.Game.Game;
+import model.customer.Customer;
+import model.customer.DAOCustomer;
+import model.game.DAOGame;
+import model.game.Game;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -21,7 +21,7 @@ public class DAORental {
                 + game.getId() + ", " + customer.getId() + ", '" + rentDate.format(SQL_FORMAT) + "')";
         Connector.getConnection().ejecutarStatement(sql);
 
-        // Recupera el id que MySQL acaba de generar (AUTO_INCREMENT)
+        // Recuperamos el id que MySQL acaba de generar (AUTO_INCREMENT)
         ResultSet rs = Connector.getConnection().ejecutarQuery("SELECT LAST_INSERT_ID() AS id");
         int id = 0;
         if (rs.next()) {
@@ -47,6 +47,19 @@ public class DAORental {
             return mapearRental(rs);
         }
         return null;
+    }
+
+    // Rentas de UN solo cliente (filtrado en la propia consulta SQL, no en
+    // memoria) — es lo que separa "ve todo" (Employee) de "ve lo suyo" (Customer).
+    public static ArrayList<Rental> listarRentalsPorCustomer(int idCustomer) throws Exception {
+        ArrayList<Rental> lista = new ArrayList<>();
+        ResultSet rs = Connector.getConnection().ejecutarQuery(
+                "SELECT id, id_game, id_customer, rent_date, return_date FROM t_rentals WHERE id_customer = ?",
+                idCustomer);
+        while (rs.next()) {
+            lista.add(mapearRental(rs));
+        }
+        return lista;
     }
 
     public static void registrarDevolucion(int id, LocalDateTime returnDate) throws Exception {

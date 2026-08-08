@@ -6,16 +6,26 @@ USE db_game_store;
 
 -- Creación de las tablas
 
+-- Tienda (una sola fila: el sistema es de una sola tienda)
+CREATE TABLE t_store (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+
 -- Clientes
 CREATE TABLE t_customers (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 );
 
 -- Empleados
 CREATE TABLE t_employees (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
     role VARCHAR(100) NOT NULL
 );
 

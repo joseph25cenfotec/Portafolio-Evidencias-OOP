@@ -1,7 +1,7 @@
-package model.Rental;
+package model.rental;
 
-import model.Customer.Customer;
-import model.Game.Game;
+import model.customer.Customer;
+import model.game.Game;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

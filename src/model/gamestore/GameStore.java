@@ -1,24 +1,40 @@
-package model;
+package model.gamestore;
 
-import model.Game.Game;
-import model.Game.GestorGame;
-import model.Rental.GestorRental;
-import model.Rental.Rental;
+import model.game.Game;
+import model.game.GestorGame;
+import model.rental.GestorRental;
+import model.rental.Rental;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * GameStore ya no guarda listas en memoria: es un orquestador que
- * delega toda lectura/escritura a los Gestores (Game, Rental). No
- * tiene su propia tabla en la BD.
+ * GameStore ahora sí se persiste (una sola fila en t_store: el sistema
+ * es de una sola tienda). Sus métodos de negocio siguen delegando a
+ * GestorGame/GestorRental para el catálogo y las rentas.
  */
 public class GameStore {
 
+    private int id;
     private final String name;
 
+    // Constructor para crear una tienda nueva (id se asigna luego, tras insertar en BD)
     public GameStore(String name) {
         this.name = name;
+    }
+
+    // Constructor de hidratación: reconstruye la tienda ya existente en la BD
+    public GameStore(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

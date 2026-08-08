@@ -2,6 +2,7 @@ package utils;
 
 import java.io.FileInputStream;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Utils {
@@ -27,5 +28,20 @@ public class Utils {
             System.out.println("Se dio un error inesperado al cargar las credenciales de acceso a la base de datos.\n");
             throw e;
         }
+    }
+
+    public static int leerOpcion(Scanner scanner) {
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    public static String escaparCaracteres(String valor) {
+        if (valor == null) {
+            return "";
+        }
+        return valor.replace("'", "''");
     }
 }

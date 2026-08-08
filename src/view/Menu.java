@@ -1,7 +1,7 @@
 package view;
 
-import model.Game.Game;
-import model.Rental.Rental;
+import model.game.Game;
+import model.rental.Rental;
 import java.util.List;
 import static java.lang.IO.*;
 
@@ -16,6 +16,24 @@ public class Menu {
         println("--------------------------------------");
     }
 
+    // Selección inicial: ¿la persona entra como Empleado o como Cliente?
+    public static void printMenuRol() {
+        println("\n=== ¿CÓMO DESEA INGRESAR? ===");
+        println("1. Empleado");
+        println("2. Cliente");
+        println("3. Salir");
+        print("Introduzca una opción: ");
+    }
+
+    // rol: "EMPLEADOS" o "CLIENTES", para reutilizar el mismo menú de acceso
+    public static void printMenuAuth(String rol) {
+        println("\n=== ACCESO " + rol.toUpperCase() + " ===");
+        println("1. Iniciar sesión");
+        println("2. Registrarse");
+        println("3. Volver");
+        print("Introduzca una opción: ");
+    }
+
     public static void printMenuPrincipal() {
         println("\n=== MENÚ PRINCIPAL ===");
         println("1. Cliente");
@@ -24,12 +42,24 @@ public class Menu {
         print("Introduzca una opción: ");
     }
 
+    // Menú del lado del empleado: opera sobre un cliente (lo busca por username)
     public static void printMenuCliente() {
         println("\n=== MENÚ CLIENTE ===");
         println("1. Rentar videojuego");
         println("2. Devolver videojuego");
         println("3. Ver videojuegos");
         println("4. Volver");
+        print("Introduzca una opción: ");
+    }
+
+    // Menú self-service: el propio cliente logueado, solo ve/toca lo suyo
+    public static void printMenuClienteSelfService() {
+        println("\n=== MI CUENTA ===");
+        println("1. Ver catálogo de videojuegos");
+        println("2. Rentar videojuego");
+        println("3. Devolver videojuego");
+        println("4. Ver mis rentas");
+        println("5. Cerrar sesión");
         print("Introduzca una opción: ");
     }
 
@@ -72,5 +102,57 @@ public class Menu {
 
     public static void printOpcionInvalida() {
         println("Opción inválida.");
+    }
+
+    public static void printSistemaCerrado() {
+        println("Sistema cerrado.");
+    }
+
+    public static void printHastaLuego() {
+        println("Hasta luego.");
+    }
+
+    // ---------------------- TIENDA (bootstrap) ----------------------
+
+    public static void promptNombreTienda() {
+        println("Ingrese el nombre de la tienda:");
+    }
+
+    public static void printBienvenidoATienda(String storeName) {
+        println("Bienvenido a " + storeName);
+    }
+
+    // ---------------------- LOGIN / REGISTRO ----------------------
+
+    public static void promptUsername() {
+        println("Usuario:");
+    }
+
+    public static void promptPassword() {
+        println("Contraseña:");
+    }
+
+    public static void promptNombreCompleto() {
+        println("Nombre completo:");
+    }
+
+    public static void promptRol() {
+        println("Rol (ej. Administrador, Cajero):");
+    }
+
+    public static void printRegistroExitoso() {
+        println("Registro exitoso.");
+    }
+
+    public static void printCredencialesInvalidas() {
+        println("Usuario o contraseña incorrectos.");
+    }
+
+    public static void printSesionIniciada(String name) {
+        println("\nSesión iniciada como " + name);
+    }
+
+    public static void printSesionIniciadaConRol(String name, String role) {
+        println("\nSesión iniciada como " + name + " (" + role + ")");
     }
 }
